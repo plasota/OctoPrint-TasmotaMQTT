@@ -237,6 +237,7 @@ $(function() {
 								'warn':ko.observable(true),
 								'warnPrinting':ko.observable(true),
 								'errorEvent':ko.observable(false),
+								'onAfterUpload':ko.observable(false),
 								'gcode':ko.observable(false),
 								'gcodeOnDelay':ko.observable(0),
 								'gcodeOffDelay':ko.observable(0),

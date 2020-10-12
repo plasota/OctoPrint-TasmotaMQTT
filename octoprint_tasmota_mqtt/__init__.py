@@ -257,6 +257,14 @@ class TasmotaMQTTPlugin(octoprint.plugin.SettingsPlugin,
 		if self._timelapse_active and event == Events.MOVIE_DONE or event == Events.MOVIE_FAILED:
 			self._tasmota_mqtt_logger.debug("Timelapse generation finished: %s. Return Code: %s" % (payload.get("movie_basename", ""), payload.get("returncode", "completed")))
 			self._timelapse_active = False
+		
+		# File Handling Events
+		self._settings.get(["arrRelays"])
+		if event == Events.UPLOAD:
+			for relay in self._settings.get(["arrRelays"]):
+				if relay["onAfterUpload"]:
+					self._tasmota_mqtt_logger.debug("File uploaded, turning on relay with topic %s" % relay["topic"])
+					self.turn_on(relay)
 
 	##~~ AssetPlugin mixin
 
